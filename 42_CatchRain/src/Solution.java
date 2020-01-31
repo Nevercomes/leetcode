@@ -3,6 +3,7 @@ import java.util.List;
 import java.util.Stack;
 
 /**
+ * wrong solution
  * 接雨水问题
  * 虽然一个栈（不用栈）也可以操作，但是我喜欢两个栈，看起来简洁且逻辑清晰
  * Created by sun on 2020/1/31
