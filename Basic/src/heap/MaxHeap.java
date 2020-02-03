@@ -77,6 +77,33 @@ public class MaxHeap {
         }
     }
 
+    public void sort() {
+        // 交换最后一个元素和堆顶 (n-1次交换 用for循环表示)
+        for (int i = heapSize; i > 1; i--) {
+            // 交换步骤
+            int top = heap[1];
+            heap[1] = heap[i];
+            heap[i] = top;
+            // 交换之后调整
+            // 调整是一个自上而下的过程 调整的过程为 log2n
+            int c = 2;
+            while (c < i) {
+                // 比较两个子节点的大小
+                if (c + 1 < i && heap[c] < heap[c + 1]) {
+                    c++;
+                }
+                if (heap[c] <= heap[c / 2]) {
+                    break;
+                } else {
+                    int temp = heap[c];
+                    heap[c] = heap[c / 2];
+                    heap[c / 2] = temp;
+                    c *= 2;
+                }
+            }
+        }
+    }
+
     private void print() {
         for (int i = 1; i <= heapSize; i++) {
             System.out.print(heap[i] + " ");
@@ -89,6 +116,8 @@ public class MaxHeap {
         MaxHeap maxHeap = new MaxHeap(arr);
         maxHeap.init();
         maxHeap.insert(13);
+        maxHeap.print();
+        maxHeap.sort();
         maxHeap.print();
     }
 
