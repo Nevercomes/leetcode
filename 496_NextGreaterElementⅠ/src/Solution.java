@@ -1,8 +1,13 @@
+import java.util.ArrayDeque;
+import java.util.Deque;
+import java.util.HashMap;
+import java.util.Map;
+
 /**
- * 给两个数组，都是无重复元素的，数组1是数组2的子集
- * 求数组1中每个数在数组2中是否右侧有比它大的数
- * 暴力解法 时间复杂度 O(n * m)
- * 1 <= nums1.length <= nums2.length <= 1000
+ * 单调栈解法
+ * 单调栈求的是一个数组自己 每个元素右边比自己大的第一个元素
+ * 它记录的不是index，而是数字本身的对应关系，当然记index也可以，就是入栈的就不是int了，而是一个对象，不简洁
+ * 时间复杂度为 O(n + m)
  *
  * @author Sunss
  * @since 2021/3/25
@@ -11,21 +16,20 @@ public class Solution {
     public int[] nextGreaterElement(int[] nums1, int[] nums2) {
         int[] res = new int[nums1.length];
 
-        for (int i = 0; i < nums1.length; i++) {
-            boolean theNumber = false;
-            boolean noGreater = true;
-            for (int j = 0; j < nums2.length; j++) {
-                if (nums1[i] == nums2[j]) {
-                    theNumber = true;
-                }
-                if (theNumber && nums2[j] > nums1[i]) {
-                    res[i] = nums2[j];
-                    noGreater = false;
-                    break;
-                }
+        Deque<Integer> stack = new ArrayDeque<>();
+        Map<Integer, Integer> map = new HashMap<>();
+
+        for (int i = 0; i < nums2.length; i++) {
+            while (!stack.isEmpty() && stack.peek() < nums2[i]) {
+                map.put(stack.pop(), nums2[i]);
             }
-            if (noGreater) res[i] = -1;
+            stack.push(nums2[i]);
         }
+
+        for (int i = 0; i < nums1.length; i++) {
+            res[i] = map.getOrDefault(nums1[i], -1);
+        }
+
         return res;
     }
 }
