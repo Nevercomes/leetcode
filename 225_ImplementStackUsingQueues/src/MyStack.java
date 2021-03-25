@@ -35,7 +35,7 @@ public class MyStack {
      */
     public int pop() {
         if (flag == 1) {
-            if(q1.isEmpty()) return 0;
+            if (q1.isEmpty()) return 0;
             int ele = 0;
             int size = q1.size();
             int count = 0;
@@ -48,7 +48,7 @@ public class MyStack {
             flag = 2;
             return ele;
         } else {
-            if(q2.isEmpty()) return 0;
+            if (q2.isEmpty()) return 0;
             int ele = 0;
             int size = q2.size();
             int count = 0;
@@ -68,7 +68,7 @@ public class MyStack {
      */
     public int top() {
         if (flag == 1) {
-            if(q1.isEmpty()) return 0;
+            if (q1.isEmpty()) return 0;
             int ele = 0;
             while (!q1.isEmpty()) {
                 ele = q1.poll();
@@ -77,7 +77,7 @@ public class MyStack {
             flag = 2;
             return ele;
         } else {
-            if(q2.isEmpty()) return 0;
+            if (q2.isEmpty()) return 0;
             int ele = 0;
             while (!q2.isEmpty()) {
                 ele = q2.poll();
