@@ -1,6 +1,6 @@
 /**
  * 就统计层数？左子树的层数和右子树的层数？
- *
+ * <p>
  * 那时间为什么会给到 4s？
  * 从二叉树的节点A出发，可以向上或者向下走，但沿途的节点只能经过一次....
  * 65%的case WA 了
@@ -20,6 +20,7 @@ public class Solution {
     public int maxDistance(TreeNode root) {
         // write code here
         // 先遍历子树
+        if (root == null) return 0;
         int leftDepth = 0, rightDepth = 0;
         if (root.left != null) {
             level = 1;
