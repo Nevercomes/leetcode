@@ -1,23 +1,32 @@
+import java.util.Deque;
+import java.util.LinkedList;
+
 /**
- * 题目:找到最大的有效括号
- * 思路:动态规划
+ * 其实吧这个有效长度，就是最右端-最左端
+ * 根据前面的分析，可以知道会有 ((()) 这种左括号留在栈里面的情况
+ * 还有就是 无法匹配的 右括号 ())()()
+ * 也会有 ()()() 这种栈空的情况，栈空和面对无法匹配的 右括号其实是同理的
+ *
  * @author Sunss
- * @since 2020/8/25
+ * @since 2021/4/6
  */
 public class Solution {
     public int longestValidParentheses(String s) {
-        int maxans = 0;
-        int dp[] = new int[s.length()];
-        for (int i = 1; i < s.length(); i++) {
-            if (s.charAt(i) == ')') {
-                if (s.charAt(i - 1) == '(') {
-                    dp[i] = (i >= 2 ? dp[i - 2] : 0) + 2;
-                } else if (i - dp[i - 1] > 0 && s.charAt(i - dp[i - 1] - 1) == '(') {
-                    dp[i] = dp[i - 1] + ((i - dp[i - 1]) >= 2 ? dp[i - dp[i - 1] - 2] : 0) + 2;
+        int max = 0;
+        Deque<Integer> stack = new LinkedList<>();
+        stack.push(-1);
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) == '(') {
+                stack.push(i);
+            } else {
+                stack.pop();
+                if (stack.isEmpty()) {
+                    stack.push(i);
+                } else {
+                    max = Math.max(max, i - stack.peek());
                 }
-                maxans = Math.max(maxans, dp[i]);
             }
         }
-        return maxans;
+        return max;
     }
 }
